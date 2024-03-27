@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
+import { Product } from '@shared/models/product.model';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,10 @@ export class HeaderComponent {
 
   toggleSideMenu() {
     this.hideSideMenu.update((prevState) => !prevState);
+  }
+
+  deleteToCart(product: Product) {
+    this.cartService.deleteToCart(product);
   }
 
 }
