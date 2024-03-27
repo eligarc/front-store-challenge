@@ -1,6 +1,6 @@
 
 import { Component, Input, SimpleChanges, inject, signal } from '@angular/core';
-import { ProductComponent } from '@products/components/product/product.component';
+import { ProductComponent } from '../../components/product/product.component';
 import { Product } from '@shared/models/product.model';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { CartService } from '@shared/services/cart.service';
