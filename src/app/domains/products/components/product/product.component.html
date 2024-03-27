@@ -1,12 +1,12 @@
-<div class="group rounded-lg border">
-  <a [routerLink]="['product', product.id]" class="w-full overflow-hidden rounded-t-lg bg-gray-200">
+<div class="group h-[485px] max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <a [routerLink]="['product', product.id]" class="h-full w-full overflow-hidden rounded-t-lg bg-gray-200">
     <img
       [src]="product.image"
       [alt]="product.name"
-      class="h-full w-full object-cover object-center group-hover:opacity-75"
+      class="rounded-t-lg h-[350px] w-full object-contain group-hover:opacity-75"
     />
   </a>
-  <div class="flex flex-col space-y-2 p-4">
+  <div class="flex flex-col space-y-2 p-4 h-[135px]">
     <h3 class="text-sm text-gray-700">
       {{ product.name }}
     </h3>
@@ -16,12 +16,6 @@
     <p class="text-sm font-medium text-gray-500">
       {{ product.createdAt | timeAgo }}
     </p>
-    <button
-      class="text-black bg-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 w-full"
-      (click)="addCartHandler()"
-    >
-      Agregar al carrito
-    </button>
   </div>
 </div>
 
