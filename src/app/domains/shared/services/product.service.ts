@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Product } from '../models/product.model';
 import { checkToken } from '@shared/interceptors/token.interceptor';
+import { apiUrl } from '../../utils';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,11 @@ import { checkToken } from '@shared/interceptors/token.interceptor';
 export class ProductService {
 
   private http = inject(HttpClient);
-  apiUrl = 'https://api-store-challenge-995bf154a855.herokuapp.com';
 
   constructor() { }
 
   getProducts(category_id?: string) {
-    const url = new URL(this.apiUrl + '/api/v1/products');
+    const url = new URL(apiUrl + '/api/v1/products');
 
     if (category_id) {
       url.searchParams.set('categoryId', category_id);
@@ -24,11 +24,11 @@ export class ProductService {
   }
 
   getProduct(id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/api/v1/products/${id}`);
+    return this.http.get<Product>(`${apiUrl}/api/v1/products/${id}`);
   }
 
   createProduct(product: Product) {
-    return this.http.post(`${this.apiUrl}/api/v1/products`, product, {
+    return this.http.post(`${apiUrl}/api/v1/products`, product, {
       context: checkToken(),
     });
   }

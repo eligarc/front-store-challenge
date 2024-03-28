@@ -5,13 +5,13 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { MeService } from './me.service';
 import { ResponseLogin } from '@shared/models/auth.model';
+import { apiUrl } from '../../utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  apiUrl = 'https://api-store-challenge-995bf154a855.herokuapp.com';
   user$ = new BehaviorSubject<User | null>(null);
 
   constructor(
@@ -20,13 +20,12 @@ export class AuthService {
     private meService: MeService,
   ) { }
 
-  
   getDataUser() {
     return this.user$.getValue();
   }
 
   login(email: string, password: string) {
-    return this.http.post<ResponseLogin>(`${this.apiUrl}/api/v1/auth/login`, {
+    return this.http.post<ResponseLogin>(`${apiUrl}/api/v1/auth/login`, {
       email,
       password
     })

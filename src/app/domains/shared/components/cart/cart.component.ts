@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Product, ProductBasket } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
+import { OrderService } from '@shared/services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +13,7 @@ import { CartService } from '@shared/services/cart.service';
 export class CartComponent {
   hideSideMenu = signal(true);
   private cartService = inject(CartService);
+  private orderService = inject(OrderService);
 
   cart = this.cartService.cart;
   subTotal = this.cartService.total;
@@ -32,5 +34,7 @@ export class CartComponent {
     this.cartService.decreaseQuantity(product);
   }
 
-  createOrder() {}
+  createOrder() {
+    this.orderService.createOrder(this.cart());
+  }
 }
