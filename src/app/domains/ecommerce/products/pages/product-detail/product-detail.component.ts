@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject, signal } from '@angular/core';
+import { CartComponent } from '@shared/components/cart/cart.component';
 import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
@@ -7,7 +8,7 @@ import { ProductService } from '@shared/services/product.service';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CartComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })

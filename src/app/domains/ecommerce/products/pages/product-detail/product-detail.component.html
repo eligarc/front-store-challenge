@@ -23,9 +23,11 @@
     </p>
     <button
       class="flex text-black bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-500 rounded"
-      (click)="addToCart()"
+      (click)="addToCart(); card.toggleSideMenu();"
     >
       Agregar al carrito
     </button>
   </div>
 </div>
+
+<app-cart #card />

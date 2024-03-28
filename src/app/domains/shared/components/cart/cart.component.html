@@ -1,0 +1,116 @@
+<div
+  class="fixed border-l-4 top-0 right-0 bg-red z-40 h-screen w-96 p-3 overflow-y-auto transition-transform bg-white"
+  [class.translate-x-full]="hideSideMenu()"
+>
+  <div class="flex justify-between items-center">
+    <div class="text-center w-full">
+      <p class="text-xl font-semibold">Carrito de compras</p>
+    </div>
+    <button (click)="toggleSideMenu()" class="border rounded relative">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="pt-4 flex flex-col">
+    @if (cart().length <= 0) {
+    <div>
+      <h2 class="text-gray-200 text-xl">
+        No has agregado productos a tu carrito
+      </h2>
+    </div>
+    } @for (product of cart(); track $index) {
+    <div
+      class="space-y-2 border relative p-3 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-2"
+    >
+      <div class="flex space-x-2 items-center">
+        <img class="h-17 w-14" [src]="product.image" [alt]="product.name" />
+        <h3>{{ product.name }}</h3>
+      </div>
+      <hr />
+      <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center border rounded relative">
+          <button>
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 12h14"
+              />
+            </svg>
+          </button>
+          <input
+            type="number"
+            id="number-input"
+            aria-describedby="helper-text-explanation"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm text-center rounded-lg w-[50px] p-2.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            required
+          />
+          <button>
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 12h14m-7 7V5"
+              />
+            </svg>
+          </button>
+        </div>
+        <button (click)="deleteToCart(product)">
+          <svg
+            class="w-6 h-6 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <p><span class="font-semibold">Subtotal:</span> {{ product.price }}</p>
+      </div>
+    </div>
+    } @if (subTotal() > 0) {
+    <div>
+      <p class="text-lg font-semibold">Total: {{ subTotal() }}</p>
+    </div>
+    }
+  </div>
+</div>
