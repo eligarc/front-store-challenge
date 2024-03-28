@@ -25,14 +25,31 @@
   </div>
   <div class="pt-4 flex flex-col">
     @if (cart().length <= 0) {
-    <div>
+    <div class="absolute top-80">
       <h2 class="text-gray-200 text-xl">
         No has agregado productos a tu carrito
       </h2>
+      <svg
+        class="w-6 h-6 text-gray-200 dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
+        />
+      </svg>
     </div>
     } @for (product of cart(); track $index) {
     <div
-      class="space-y-2 border relative p-3 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-2"
+      class="space-y-2 border relative p-3 bg-gray-50 rounded-lg shadow dark:bg-gray-800 mb-2"
     >
       <div class="flex space-x-2 items-center">
         <img class="h-17 w-14" [src]="product.image" [alt]="product.name" />
@@ -40,10 +57,12 @@
       </div>
       <hr />
       <div class="flex justify-between items-center">
-        <div class="flex justify-between items-center border rounded relative">
-          <button>
+        <div
+          class="flex justify-between items-center border rounded-xl relative"
+        >
+          <button (click)="decreaseQuantity(product)">
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
+              class="w-6 h-6 text-gray-800 dark:text-white p-1"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -63,13 +82,14 @@
           <input
             type="number"
             id="number-input"
+            [value]="product.qty"
             aria-describedby="helper-text-explanation"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm text-center rounded-lg w-[50px] p-2.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            class="bg-gray-100 border-0 m-1 border-gray-300 text-gray-900 text-sm text-center rounded-xl w-[50px] p-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             required
           />
-          <button>
+          <button (click)="increaseQuantity(product)">
             <svg
-              class="w-6 h-6 text-gray-800 dark:text-white"
+              class="w-6 h-6 text-gray-800 dark:text-white p-1"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -104,12 +124,20 @@
             />
           </svg>
         </button>
-        <p><span class="font-semibold">Subtotal:</span> {{ product.price }}</p>
+        <p>
+          <span class="font-semibold">Subtotal:</span> {{ product.subtotal }}
+        </p>
       </div>
     </div>
     } @if (subTotal() > 0) {
-    <div>
-      <p class="text-lg font-semibold">Total: {{ subTotal() }}</p>
+    <div class="absolute bottom-5 w-[93%]">
+      <p class="text-lg text-right font-normal">Total: {{ subTotal() }}</p>
+      <button
+        class="text-black bg-yellow-400 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-500 rounded w-full"
+        (click)="createOrder()"
+      >
+        Comprar ahora
+      </button>
     </div>
     }
   </div>

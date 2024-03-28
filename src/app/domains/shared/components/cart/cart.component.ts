@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Product } from '@shared/models/product.model';
+import { Product, ProductBasket } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 
 @Component({
@@ -20,7 +20,17 @@ export class CartComponent {
     this.hideSideMenu.update((prevState) => !prevState);
   }
 
-  deleteToCart(product: Product) {
+  deleteToCart(product: ProductBasket) {
     this.cartService.deleteToCart(product);
   }
+
+  increaseQuantity(product: ProductBasket) {
+    this.cartService.increaseQuantity(product);
+  }
+
+  decreaseQuantity(product: ProductBasket) {
+    this.cartService.decreaseQuantity(product);
+  }
+
+  createOrder() {}
 }

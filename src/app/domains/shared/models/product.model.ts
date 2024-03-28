@@ -12,3 +12,9 @@ export interface Product {
   categoryId: number;
   category: Category;
 }
+
+
+export interface ProductBasket extends Product {
+  qty: number;
+  subtotal: number;
+}
