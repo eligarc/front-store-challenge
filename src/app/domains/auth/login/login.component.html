@@ -22,36 +22,83 @@
         >
           Inicia sesión en tu cuenta
         </h1>
-        <form class="space-y-4 md:space-y-6" action="#">
+        <form
+          [formGroup]="form"
+          novalidate
+          class="space-y-4 md:space-y-6"
+          (ngSubmit)="doLogin()"
+        >
           <div>
-            <label
-              for="email"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Email</label
+            <div class="relative">
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Email</label
+              >
+              <input
+                #nameInput
+                formControlName="email"
+                placeholder="Enter email"
+                type="email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                placeholder="name@mail.com"
+              />
+            </div>
+            <div
+              *ngIf="form.controls.email.touched && form.controls.email.invalid"
             >
-            <input
-              type="email"
-              name="email"
-              id="email"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-              placeholder="name@mail.com"
-              required=""
-            />
+              <p
+                *ngIf="form.controls.email.hasError('required')"
+                class="font-medium text-red-500 text-xs mt-1 ml-1"
+              >
+                Este campo es obligatorio
+              </p>
+              <p
+                *ngIf="form.controls.email.hasError('email')"
+                class="font-medium text-red-500 text-xs mt-1 ml-1"
+              >
+                Este campo debe ser un correo electrónico
+              </p>
+            </div>
           </div>
           <div>
-            <label
-              for="password"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Contraseña</label
+            <div class="relative">
+              <label
+                for="password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Contraseña</label
+              >
+              <input
+                formControlName="password"
+                placeholder="Enter password"
+                type="password"
+                placeholder="••••••••"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+              />
+            </div>
+            <div
+              *ngIf="
+                form.controls.password.touched && form.controls.password.invalid
+              "
             >
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
-              required=""
-            />
+              <p
+                *ngIf="form.controls.password.hasError('required')"
+                class="font-medium text-red-500 text-xs mt-1 ml-1"
+              >
+                Este campo es obligatorio
+              </p>
+              <p
+                *ngIf="form.controls.password.hasError('minlength')"
+                class="font-medium text-red-500 text-xs mt-1 ml-1"
+              >
+                Este campo debe tener más de 8 caracteres.
+              </p>
+            </div>
+          </div>
+          <div *ngIf="status === 'failed'">
+            <p class="font-medium text-red-500 text-xs mt-1 ml-1">
+              Las credenciales son inválidas
+            </p>
           </div>
           <button
             type="submit"

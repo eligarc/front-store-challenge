@@ -18,13 +18,13 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
     "paths": {
       "@shared/*": ["./src/app/domains/shared/*"],
-      "@products/*": ["./src/app/domains/ecommerce/products/*"]
+      "@products/*": ["./src/app/domains/ecommerce/products/*"],
+      "@models/*": ["./src/app/domains/shared/models/*"],
+      "@interceptors/*": ["./src/app/domains/shared/interceptors/*"],
+      "@services/*": ["./src/app/domains/shared/services/*"],
     }
   },
   "angularCompilerOptions": {

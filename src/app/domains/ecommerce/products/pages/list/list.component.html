@@ -1,19 +1,31 @@
 <div class="flex space-x-4 mt-5">
   <div class="w-56">
     <ul>
-      <li routerLink="/">Todos</li>
+      <li
+        routerLink="/"
+        class="hover:cursor-pointer"
+        (click)="handleSelectCategory(0)"
+        [ngClass]="{ 'font-semibold underline': categorySelected() === 0 }"
+      >
+        Todos
+      </li>
+
       @for (category of categories(); track category) {
-        <li>
-          <a routerLink="/" [queryParams]="{ category_id: category.id }">{{
-            category.name
-          }}</a>
-        </li>
+      <li>
+        <a
+          routerLink="/"
+          [ngClass]="{ 'font-semibold underline': categorySelected() === category.id }"
+          (click)="handleSelectCategory(category.id)"
+          [queryParams]="{ category_id: category.id }"
+          >{{ category.name }}</a
+        >
+      </li>
       }
     </ul>
   </div>
   <div class="grid grid-cols-4 gap-8 w-full h-full">
     @for (product of products(); track product.id) {
-      <app-product [product]="product" />
+    <app-product [product]="product" />
     }
   </div>
 </div>

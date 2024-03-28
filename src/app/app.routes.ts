@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { NotFoundComponent } from './domains/info/pages/not-found/not-found.component';
-import { LayoutComponent } from '@shared/components/layout/layout.component';
-import { LayoutAdminComponent } from '@shared/components/layout-admin/layout-admin.component';
+import { LayoutComponent } from '@shared/components/layouts/layout/layout.component';
+import { LayoutAdminComponent } from '@shared/components/layouts/admin/admin.component';
+import { AuthGuard } from '@shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -28,7 +29,18 @@ export const routes: Routes = [
     ],
   },
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./domains/auth/login/login.component'),
+  },
+  {
     path: 'admin',
+    canActivate: [ AuthGuard ],
     component: LayoutAdminComponent,
     children: [
       {

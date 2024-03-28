@@ -8,6 +8,7 @@ import { ProductService } from '@shared/services/product.service';
 import { CategoryService } from '@shared/services/category.service';
 import { Category } from '@shared/models/category.model';
 import { RouterLinkWithHref } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list',
@@ -15,7 +16,8 @@ import { RouterLinkWithHref } from '@angular/router';
   imports: [
     ProductComponent,
     HeaderComponent,
-    RouterLinkWithHref
+    RouterLinkWithHref,
+    CommonModule
 ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
@@ -23,6 +25,7 @@ import { RouterLinkWithHref } from '@angular/router';
 export default class ListComponent {
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
+  categorySelected = signal<number>(0);
   private cartService = inject(CartService);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
@@ -56,5 +59,9 @@ export default class ListComponent {
       },
       error: () => {},
     });
+  }
+
+  handleSelectCategory(categoryId: number) {
+    this.categorySelected.set(categoryId);
   }
 }
