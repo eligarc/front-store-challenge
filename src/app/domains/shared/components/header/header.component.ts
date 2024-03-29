@@ -15,20 +15,17 @@ import { TokenService } from '@shared/services/token.service';
 export class HeaderComponent {
   private cartService = inject(CartService);
   private authService = inject(AuthService);
+  private router = inject(Router);
+  private tokenService = inject(TokenService);
 
   cart = this.cartService.cart;
 
-  isLoggedUser!: string | undefined;
-
-  constructor(private router: Router, private tokenService: TokenService) {}
-
-  ngOnInit() {
-    this.isLoggedUser = this.tokenService.getToken();
-  }
+  isLoggedUser = signal<string | undefined>(this.tokenService.getToken());
 
   logoutUser() {
     this.authService.logout();
     this.router.navigate(['/']);
+    window.location.reload();
   }
 
 

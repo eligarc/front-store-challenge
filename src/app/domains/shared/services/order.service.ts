@@ -1,4 +1,6 @@
 import { Injectable, inject } from '@angular/core';
+import Toastify from 'toastify-js'
+
 import { apiUrl } from '../../utils';
 import { HttpClient } from '@angular/common/http';
 import { ProductBasket } from '@shared/models/product.model';
@@ -32,6 +34,19 @@ export class OrderService {
       }).subscribe((newOrder) => {
         this.cartService.resetBasket();
         this.router.navigate(['/']);
+        Toastify({
+          text: "Tú compra se ha registrado exitosamente!🤩",
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "left", // `left`, `center` or `right`
+          stopOnFocus: true,
+          style: {
+            background: "rgb(22 163 74);",
+          },
+          onClick: function(){}
+        }).showToast();
       });
     });
   }
