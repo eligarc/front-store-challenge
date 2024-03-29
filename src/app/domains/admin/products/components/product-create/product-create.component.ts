@@ -54,13 +54,11 @@ export default class ProductCreateComponent {
   }
 
   saveProduct(event: Event) {
-    console.log("this.form.value", this.form.value);
     event.preventDefault();
     if (this.form.valid) {
       const product = this.form.value;
       this.productService.createProduct(product)
       .subscribe((newProduct) => {
-        console.log(newProduct);
         this.router.navigate(['./admin']);
       });
     }

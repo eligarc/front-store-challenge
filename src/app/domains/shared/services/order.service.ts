@@ -3,6 +3,8 @@ import { apiUrl } from '../../utils';
 import { HttpClient } from '@angular/common/http';
 import { ProductBasket } from '@shared/models/product.model';
 import { checkToken } from '@shared/interceptors/token.interceptor';
+import { Router } from '@angular/router';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +12,13 @@ import { checkToken } from '@shared/interceptors/token.interceptor';
 export class OrderService {
 
   private http = inject(HttpClient);
-
-  constructor() { }
+  private router = inject(Router);
+  private cartService = inject(CartService);
 
   createOrder(cartProducts: ProductBasket[]) {
     return this.http.post(`${apiUrl}/api/v1/orders`, {}, {
       context: checkToken(),
     }).subscribe((newOrder: any) => {
-      console.log(newOrder);
       const parsedProducts = cartProducts.map((item) => ({
         orderId: newOrder.id,
         productId: item.id,
@@ -29,7 +30,8 @@ export class OrderService {
       this.http.post(`${apiUrl}/api/v1/orders/add-items`,parsedProducts , {
         context: checkToken(),
       }).subscribe((newOrder) => {
-        console.log(newOrder);
+        this.cartService.resetBasket();
+        this.router.navigate(['/']);
       });
     });
   }

@@ -33,6 +33,15 @@
       </ul>
     </div>
     <div class="flex items-center">
+      @if (isLoggedUser) {
+        <button
+          type="button"
+          class="text-gray-900 bg-whitefocus:outline-none font-medium text-sm px-5 py-3 me-2 mb-2 w-full"
+          (click)="logoutUser()"
+        >
+          Cerrar sesión
+        </button>
+      }
       <button class="p-2 border rounded relative" (click)="card.toggleSideMenu()">
         @if (cart().length > 0) {
         <div

@@ -62,4 +62,8 @@ export class CartService {
       return prevState.filter((item) => item.id !== product.id);
     });
   }
+
+  resetBasket() {
+    this.cart.set([]);
+  }
 }
