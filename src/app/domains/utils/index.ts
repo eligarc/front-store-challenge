@@ -1,1 +1,1 @@
-export const apiUrl = 'https://api-store-challenge-995bf154a855.herokuapp.com';
+export const apiUrl = 'https://api-store-challenge-production.up.railway.app';
